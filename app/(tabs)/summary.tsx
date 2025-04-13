@@ -51,23 +51,18 @@ export default function SummaryScreen() {
       .map(([groupId, amount]) => {
         const group = groups.find(g => g.id === groupId);
         if (!group) return null;
-        
-        const percentage = ((amount / totalExpenses) * 100).toFixed(1);
+
+        const balance = amount.toFixed(2);
+        const status = balance > 0 ? 'Owed' : 'To Receive';
+
         return (
           <View key={groupId} style={styles.summaryItem}>
             <View style={styles.summaryItemHeader}>
               <Text style={styles.summaryItemTitle}>{group.name}</Text>
-              <Text style={styles.summaryItemAmount}>${amount.toFixed(2)}</Text>
+              <Text style={styles.summaryItemAmount}>
+                ${Math.abs(balance)} ({status})
+              </Text>
             </View>
-            <View style={styles.progressBarContainer}>
-              <View
-                style={[
-                  styles.progressBar,
-                  { width: `${percentage}%`, backgroundColor: '#60A5FA' },
-                ]}
-              />
-            </View>
-            <Text style={styles.percentage}>{percentage}%</Text>
           </View>
         );
       });

@@ -36,13 +36,21 @@ export default function GroupDetailsScreen() {
         <Text style={styles.memberCount}>{group.members.length} members</Text>
       </View>
 
+      <View style={styles.membersSection}>
+        <Text style={styles.sectionTitle}>Members</Text>
+        {group.members.map((member, index) => (
+          <Text key={index} style={styles.memberName}>
+            {member}
+          </Text>
+        ))}
+      </View>
+
       <FlatList
         data={groupExpenses}
         renderItem={renderExpenseItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
       />
-
       <Link href={`/expense/new?groupId=${id}`} asChild>
         <TouchableOpacity style={styles.fab}>
           <Plus color="white" size={24} />
@@ -121,5 +129,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  membersSection: {
+    padding: 16,
+    backgroundColor: 'white',
+    marginBottom: 16,
+    borderRadius: 12,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  memberName: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 4,
   },
 });

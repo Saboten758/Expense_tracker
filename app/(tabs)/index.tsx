@@ -17,6 +17,10 @@ export default function GroupsScreen() {
       .reduce((acc, expense) => acc + expense.amount, 0);
   };
 
+  const getTotalBalance = () => {
+    return expenses.reduce((acc, expense) => acc + expense.amount, 0);
+  };
+
   const renderGroupCard = ({ item: group }) => (
     <Link href={`/group/${group.id}`} asChild>
       <TouchableOpacity style={styles.card}>
@@ -34,6 +38,11 @@ export default function GroupsScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.totalBalance}>
+          Total Balance: ${getTotalBalance().toFixed(2)}
+        </Text>
+      </View>
       <FlatList
         data={groups}
         renderItem={renderGroupCard}
@@ -53,6 +62,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+  },
+  header: {
+    padding: 16,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  totalBalance: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#007AFF',
   },
   list: {
     padding: 16,
